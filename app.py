@@ -16,7 +16,7 @@ model.eval()
 # -----------------------------
 # Load Information Plane Data
 # -----------------------------
-data = np.load("info_plane_data.npz")
+data = np.load("info_plane_data.npz", allow_pickle=True)
 I_ZX_list = data["I_ZX_list"]
 I_ZY_list = data["I_ZY_list"]
 
@@ -96,3 +96,4 @@ st.pyplot(fig)
 if st.button("Save Information Plane as PNG"):
     fig.savefig("Information_Plane.png", dpi=300)
     st.success("Saved as Information_Plane.png")
+
