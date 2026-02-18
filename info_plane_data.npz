@@ -1,3 +1,0 @@
-np.savez("info_plane_data.npz",
-         I_ZX_list=I_ZX_list,
-         I_ZY_list=I_ZY_list)
