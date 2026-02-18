@@ -3,15 +3,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class VIB(nn.Module):
-    def __init__(self, input_dim=784, hidden_dim=1024, z_dim=256, num_classes=10):
+    def __init__(self, input_dim=784, hidden_dim=512, z_dim=64, num_classes=10):
         super(VIB, self).__init__()
 
+        # Encoder
         self.fc1 = nn.Linear(input_dim, hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, hidden_dim)
 
+        # Latent distribution
         self.mu = nn.Linear(hidden_dim, z_dim)
         self.logvar = nn.Linear(hidden_dim, z_dim)
 
+        # Classifier
         self.classifier = nn.Linear(z_dim, num_classes)
 
     def encode(self, x):
@@ -30,4 +33,4 @@ class VIB(nn.Module):
         mu, logvar = self.encode(x)
         z = self.reparameterize(mu, logvar)
         logits = self.classifier(z)
-        return logits
+        return logits, mu, logvar, z
